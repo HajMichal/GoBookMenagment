@@ -8,9 +8,11 @@ import (
 	"main.go/models"
 )
 
-var DB = initializers.DB
+
 
 func AddBook(c fiber.Ctx) error {
+
+	var db = initializers.Db
 	book := new(models.Book)
 
 	if err := c.Bind().Body(book); err != nil {
@@ -21,7 +23,7 @@ func AddBook(c fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request body"})
 	}
 
-	DB.Create(book)
+	db.Create(book)
 
 	return c.Status(http.StatusOK).JSON(book)
 }

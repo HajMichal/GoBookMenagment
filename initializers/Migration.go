@@ -1,9 +1,11 @@
 package initializers
 
-import "main.go/models"
+import (
+	"main.go/models"
+)
 
 
 func Migration() {
-	DB.AutoMigrate(&models.Book{})
-	DB.AutoMigrate(&models.User{})
+	Db.AutoMigrate(&models.Book{})
+	Db.AutoMigrate(&models.User{})
 }
