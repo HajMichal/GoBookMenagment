@@ -3,8 +3,9 @@ package models
 import "database/sql"
 
 type Book struct {
-	Title      string 			`json:"title"`
-	ISBN       string 			`json:"isbn"`
+	ID		   int				`json:"id" gorm:"autoIncrement;unique;primaryKey"`
+	Title      string 			`json:"title" gorm:"unique"`
+	ISBN       string 			`json:"isbn" gorm:"unique"`
 	Author     string 			`json:"author"`
 	Publisher  string 			`json:"publisher"`
 	Stock      int 				`json:"stock"`
@@ -13,7 +14,8 @@ type Book struct {
 }
 
 type User struct {
-	ID       string	`json:"id"`
+	ID       int	`json:"id" gorm:"autoIncrement;unique;primaryKey"`
+	Email	 string `json:"email" gorm:"unique"`
 	Name     string `json:"name"`
 	Password string `json:"password"`
 	Overdue  int 	`json:"overdue"`
