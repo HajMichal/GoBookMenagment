@@ -7,8 +7,11 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"main.go/models"
 	services "main.go/services/user"
+	"main.go/structs"
 	"main.go/utils"
 )
+
+
 
 func SignIn(c fiber.Ctx) error {
 
@@ -33,12 +36,12 @@ func SignIn(c fiber.Ctx) error {
 		return c.Status(http.StatusNotFound).JSON(err.Error())
 	}
 
-	return c.Status(http.StatusOK).JSON(fiber.Map{
-		"id": findUser.ID,
-		"name": findUser.Name,
-		"email": findUser.Email,
-		"type": findUser.Type,
-		"token": token,
+	return c.Status(http.StatusOK).JSON(structs.CookieData{
+		Id: findUser.ID,
+		Name: findUser.Name,
+		Email: findUser.Email,
+		Type: findUser.Type,
+		Token: token,
 	})
 }
 
@@ -54,5 +57,6 @@ func setToken(c fiber.Ctx, user models.User) (string, error) {
 	cookie.Expires = time.Now().Add(24 * time.Hour)
 
 	c.Cookie(cookie)
+
 	return token, nil
 }

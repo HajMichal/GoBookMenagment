@@ -23,6 +23,7 @@ func Router() {
 
 	app.Get("/api/user/:id", userServices.GetSingleUser)
 	app.Get("/api/users", userServices.GetAllUsers)
+	app.Delete("/api/user/:id", userServices.RemoveUser)
 	app.Patch("/api/user/:id", userServices.UpdateSingleUser)
 
 	port := os.Getenv("PORT")

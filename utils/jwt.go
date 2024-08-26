@@ -28,11 +28,11 @@ func CreateToken(id int, email string) (string, error) {
 func VerifyToken(tokenStr string) error {
     secretKey := os.Getenv("SECRET")
     token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-        return secretKey, nil
+        return []byte(secretKey), nil
      })
-    
+
      if err != nil {
-        return err
+        return errors.New("INVALID TOKEN")
      }
     
      if !token.Valid {

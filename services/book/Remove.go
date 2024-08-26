@@ -14,8 +14,7 @@ func DeleteBook(c fiber.Ctx) error {
 	id := c.Params("id")
 	
 	result := db.Model(&models.Book{}).Where("id = ?", id).Delete(&models.Book{})
-
-	if result.Error !=nil {
+	if result.Error != nil {
 		return c.Status(http.StatusBadRequest).JSON(result.Error.Error())
 	}
 
