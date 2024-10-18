@@ -1,8 +1,6 @@
 package initializers
 
-import (
-	"main.go/models"
-)
+import "example.com/m/models"
 
 
 func Migration() {

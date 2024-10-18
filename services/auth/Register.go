@@ -3,11 +3,11 @@ package services
 import (
 	"net/http"
 
+	"example.com/m/initializers"
+	"example.com/m/models"
+	services "example.com/m/services/user"
+	"example.com/m/utils"
 	"github.com/gofiber/fiber/v3"
-	"main.go/initializers"
-	"main.go/models"
-	services "main.go/services/user"
-	"main.go/utils"
 )
 
 func Register(c fiber.Ctx) error {

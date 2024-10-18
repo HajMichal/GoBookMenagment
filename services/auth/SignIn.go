@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"time"
 
+	"example.com/m/models"
+	services "example.com/m/services/user"
+	"example.com/m/structs"
+	"example.com/m/utils"
 	"github.com/gofiber/fiber/v3"
-	"main.go/models"
-	services "main.go/services/user"
-	"main.go/structs"
-	"main.go/utils"
 )
 
 
@@ -26,8 +26,8 @@ func SignIn(c fiber.Ctx) error {
 		return c.Status(http.StatusNotFound).JSON(fiber.Map{"error": "WRONG EMAIL"})
 	}
 
-	isPwdInvalid := utils.VerifyPwd(user.Password, findUser.Password)
-	if isPwdInvalid {
+	isPwdValid := utils.VerifyPwd(user.Password, findUser.Password)
+	if !isPwdValid {
 		return c.Status(http.StatusNotFound).JSON(fiber.Map{"error": "WRONG PASSWORD"})
 	}
 
@@ -46,16 +46,17 @@ func SignIn(c fiber.Ctx) error {
 }
 
 func setToken(c fiber.Ctx, user models.User) (string, error) {
-	token, err := utils.CreateToken(user.ID, user.Email)
+	token, err := utils.CreateToken(user.ID, user.Email, user.Type)
 	if err != nil {
 		return "", c.Status(http.StatusNotFound).JSON(err.Error())
 	}
-
 	cookie := new(fiber.Cookie)
 	cookie.Name = "token"
 	cookie.Value = token
 	cookie.Expires = time.Now().Add(24 * time.Hour)
+	
 
+	c.Locals("userType", user.Type)
 	c.Cookie(cookie)
 
 	return token, nil

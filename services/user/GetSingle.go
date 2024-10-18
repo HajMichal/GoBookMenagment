@@ -4,9 +4,9 @@ import (
 	"errors"
 	"net/http"
 
+	"example.com/m/initializers"
+	"example.com/m/models"
 	"github.com/gofiber/fiber/v3"
-	"main.go/initializers"
-	"main.go/models"
 )
 
 func GetSingleUser(c fiber.Ctx) error {
@@ -24,7 +24,7 @@ func GetUser(c fiber.Ctx, credential string) (models.User, error) {
 	var db = initializers.Db
 	user := new(models.User)
 
-	result := db.First(user, credential)
+	result := db.First(user, "email = ?", credential)
 	if result.Error != nil {
 		return *user, errors.New("USER NOT FOUND")
 	}

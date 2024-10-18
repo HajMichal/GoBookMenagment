@@ -1,8 +1,8 @@
 package main
 
 import (
-	"main.go/initializers"
-	"main.go/router"
+	"example.com/m/initializers"
+	"example.com/m/router"
 )
 
 func main() {

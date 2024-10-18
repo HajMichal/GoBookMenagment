@@ -19,5 +19,8 @@ type User struct {
 	Name     string `json:"name"`
 	Password string `json:"password"`
 	Overdue  int 	`json:"overdue"`
+	// Type 0 is User |
+	// Type 1 is Employee |
+	// Type 2 is Admin
 	Type     int	`json:"type"`
 }

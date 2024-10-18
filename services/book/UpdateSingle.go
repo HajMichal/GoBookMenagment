@@ -3,9 +3,9 @@ package services
 import (
 	"net/http"
 
+	"example.com/m/initializers"
+	"example.com/m/models"
 	"github.com/gofiber/fiber/v3"
-	"main.go/initializers"
-	"main.go/models"
 )
 
 func UpdateSingleBook(c fiber.Ctx) error {
