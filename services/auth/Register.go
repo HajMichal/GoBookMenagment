@@ -22,7 +22,7 @@ func Register(c fiber.Ctx) error {
 	_, err := services.GetUser(c, user.Email)
 	if err != nil && err.Error() != "USER NOT FOUND" {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "EMAIL IS ALREADY TAKEN"})
-	}	
+	}
 
 	user.Password, err = utils.HashPwd(user.Password)
 	if err != nil {
@@ -34,7 +34,8 @@ func Register(c fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(result.Error.Error())
 	}
 
-	// return c.Status(http.StatusCreated).JSON(user)
+	go utils.SendMail(user.Email)
+
 	return c.SendStatus(http.StatusCreated)
 }
 

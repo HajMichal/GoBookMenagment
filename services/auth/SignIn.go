@@ -55,8 +55,6 @@ func setToken(c fiber.Ctx, user models.User) (string, error) {
 	cookie.Value = token
 	cookie.Expires = time.Now().Add(24 * time.Hour)
 	
-
-	c.Locals("userType", user.Type)
 	c.Cookie(cookie)
 
 	return token, nil
