@@ -3,12 +3,14 @@ package router
 import (
 	"log"
 	"os"
+	"time"
 
 	authServices "example.com/m/services/auth"
 	bookServices "example.com/m/services/book"
 	userServices "example.com/m/services/user"
 	"example.com/m/utils"
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/limiter"
 )
 
 func Router() {
@@ -16,6 +18,12 @@ func Router() {
 		AppName: "Library API",
 
 	})
+
+	app.Use(limiter.New(limiter.Config{
+		Max: 10,
+		Expiration: 10 * time.Second,
+		LimiterMiddleware: limiter.SlidingWindow{},
+	}))
 
 	app.Post("/api/addBook", bookServices.AddBook, utils.EmployeeAuth)
 	app.Get("/api/getBooks", bookServices.GetAllBooks)

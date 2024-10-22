@@ -11,7 +11,6 @@ import (
 )
 
 func Register(c fiber.Ctx) error {
-	
 	var db = initializers.Db
 	user := new(models.User)
 

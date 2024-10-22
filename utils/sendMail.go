@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"os"
 
 	"gopkg.in/gomail.v2"
@@ -20,7 +21,7 @@ func SendMail(email string) {
 
 	d := gomail.NewDialer(server, 587, sender, serverPwd)
 	if err := d.DialAndSend(m); err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 }
 
@@ -33,7 +34,7 @@ var emailBody = `
         </tr>
         <tr>
             <td style="padding: 20px;">
-                <h2>Hello !</h2>
+                <h2>Hello!</h2>
                 <p>Welcome to library, your new portal to a world of knowledge! We are excited to have you join our community of book lovers, researchers, and curious minds.</p>
                 <p>As a member of library, you now have access to:</p>
                 <ul>
